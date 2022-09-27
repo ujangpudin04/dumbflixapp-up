@@ -57,6 +57,7 @@ func (h *handlerTransaction) FindTransactions(w http.ResponseWriter, r *http.Req
 			Attache:  transaction.Attache,
 			UserID:   transaction.UserID,
 			User:     transaction.User,
+			Email:    transaction.User.Email,
 			Status:   transaction.Status,
 		})
 	}
@@ -93,6 +94,8 @@ func (h *handlerTransaction) CreateTransaction(w http.ResponseWriter, r *http.Re
 
 	userInfo := r.Context().Value("userInfo").(jwt.MapClaims)
 	userId := int(userInfo["id"].(float64))
+	// dataContex := r.Context().Value("dataFile") // add this code
+	// filename := dataContex.(string)             // add this code
 
 	request := new(transactiondto.TransactionRequest)
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
@@ -131,7 +134,7 @@ func (h *handlerTransaction) CreateTransaction(w http.ResponseWriter, r *http.Re
 		Price:     25000,
 		Status:    "pending",
 		User:      request.User,
-		// Attache: fi,
+		Attache:   "-",
 	}
 
 	newTransaction, err := h.TransactionRepository.CreateTransaction(transaction)
@@ -350,8 +353,8 @@ func SendMail(status string, transaction models.Transaction) {
 		var CONFIG_SMTP_PORT = 587
 		//   var CONFIG_USE_TLS = true
 		var CONFIG_SENDER_NAME = "dumflix <ujangpudin04@gmail.com>"
-		var CONFIG_AUTH_EMAIL = os.Getenv("SYSTEM_EMAIL")
-		var CONFIG_AUTH_PASSWORD = os.Getenv("SYSTEM_PASSWORD")
+		var CONFIG_AUTH_EMAIL = os.Getenv("EMAIL_SYSTEM")
+		var CONFIG_AUTH_PASSWORD = os.Getenv("PASSWORD_SYSTEM")
 
 		var userName = transaction.User.Fullname
 		var price = strconv.Itoa(transaction.Price)

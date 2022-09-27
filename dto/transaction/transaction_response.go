@@ -12,5 +12,6 @@ type TransactionResponse struct {
 	UserID   int                 `json:"user_id" form:"user_id"`
 	User     models.UserResponse `json:"user"`
 	Attache  string              `json:"attache" form:"attache"`
-	Status   string              `json:"status" form:"status" `
+	Status   string              `json:"status" form:"status"`
+	Email    string              `json:"email" form:"email"`
 }
