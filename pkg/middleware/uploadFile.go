@@ -92,11 +92,11 @@ func UploadFile(next http.HandlerFunc, kolom string) http.HandlerFunc {
 		tempFile.Write(fileBytes)
 
 		data := tempFile.Name()
-		fmt.Println(data)    // uploads/image-89312783912.jpg
-		filename := data[8:] // split uploads/
+		// fmt.Println(data)    // uploads/image-89312783912.jpg
+		// filename := data[8:] // split uploads/
 
 		// add filename to ctx
-		ctx := context.WithValue(r.Context(), "dataFile", filename)
+		ctx := context.WithValue(r.Context(), "dataFile", data)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
