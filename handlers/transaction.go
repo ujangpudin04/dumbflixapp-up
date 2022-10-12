@@ -131,7 +131,7 @@ func (h *handlerTransaction) CreateTransaction(w http.ResponseWriter, r *http.Re
 		UserID:    userId,
 		StartDate: startDate,
 		DueDate:   startDate.Add((time.Hour * 24) * 30), // 30 hari
-		Price:     25000,
+		Price:     100000,
 		Status:    "pending",
 		User:      request.User,
 		Attache:   "-",
@@ -352,7 +352,7 @@ func SendMail(status string, transaction models.Transaction) {
 		var CONFIG_SMTP_HOST = "smtp.gmail.com"
 		var CONFIG_SMTP_PORT = 587
 		//   var CONFIG_USE_TLS = true
-		var CONFIG_SENDER_NAME = "dumflix <ujangpudin04@gmail.com>"
+		var CONFIG_SENDER_NAME = "dumbflix <ujangpudin2004@gmail.com>"
 		var CONFIG_AUTH_EMAIL = os.Getenv("EMAIL_SYSTEM")
 		var CONFIG_AUTH_PASSWORD = os.Getenv("PASSWORD_SYSTEM")
 
